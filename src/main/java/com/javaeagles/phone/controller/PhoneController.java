@@ -35,7 +35,7 @@ public class PhoneController {
             String name = sc.nextLine();
             ph = phoneService.phoneFindByName(name);
 
-            if(name != null && name.trim().isEmpty()){    // trim() :
+            if(name == null || name.trim().isEmpty()){    // trim() :
                 System.out.println("공백입니다.");
 
             }else if(ph.getUserName() != null){
@@ -109,11 +109,19 @@ public class PhoneController {
             return;
         }
         System.out.println(ph);
-        System.out.println("변경할 이름을 입력해주세요");
-        String name = sc.nextLine();
+
         try {
-            PhoneDTO modifyEmp = phoneService.phoneModify(name, index);
-            System.out.println(modifyEmp);
+            System.out.print("변경할 이름을 입력해주세요 : ");
+            String name = sc.nextLine();
+
+            if(name == null || name.trim().isEmpty()) {    // trim() :
+                System.out.println("공백입니다.");
+            }
+            else{
+                PhoneDTO modifyEmp = phoneService.phoneModify(name, index);
+                System.out.println(modifyEmp);
+            }
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -128,25 +136,39 @@ public class PhoneController {
 
         try {
             ph = phoneService.phoneFindByName(name);
-            System.out.println(ph);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        if(ph == null) {
-            System.out.println("삭제할 전화번호가 존재하지 않습니다.");
-        }else {
-            System.out.print("삭제하시겠습니까? ( yes / no ) : ");
-            String check = sc.nextLine();
-            if (check.equalsIgnoreCase("yes")) {
-                try {
-                    phoneService.phoneDelete(name);
-                    System.out.println("삭제가 완료되었습니다.");
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            } else {
-                System.out.println("다시 시도해주세요.");
+            if(name == null || name.trim().isEmpty()){    // trim() :
+                System.out.println("공백입니다.");
+
             }
+            else if(ph.getUserName() != null){
+                System.out.println(ph);
+                if(ph.getUserName() != null) {
+                    System.out.print("삭제하시겠습니까? ( yes / no ) : ");
+                    String check = sc.nextLine();
+                    if (check.equalsIgnoreCase("yes")) {
+                        try {
+
+                            phoneService.phoneDelete(name);
+                            System.out.println("삭제가 완료되었습니다.");
+                        } catch (Exception e) {
+                            System.out.println("1212");
+                            throw new RuntimeException(e);
+
+                        }
+                    } else {
+                        System.out.println("다시 시도해주세요.");
+                    }
+                }
+            }else if (ph.getUserName() == null){
+                System.out.println("등록된 이름이 없습니다. 다시 입력해주세요.");
+
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("12");
+            throw new RuntimeException(e);
+
         }
     }
 }
