@@ -47,7 +47,7 @@ public class PhoneRepository {
                 ph.setUserMemo(rset.getString("USER_MEMO"));
                 ph.setUserGroup(rset.getString("USER_GROUP"));
                 ph.setPhone(rset.getString("PHONE"));
-                ph.setPhoneName(rset.getString("PHONE_NAME"));
+//                ph.setPhoneName(rset.getString("PHONE_NAME"));
                 arrayList.add(ph);
             }
         } catch (SQLException e) {
