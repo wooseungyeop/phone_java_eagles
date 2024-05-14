@@ -151,7 +151,6 @@ public class PhoneController {
                             phoneService.phoneDelete(name);
                             System.out.println("삭제가 완료되었습니다.");
                         } catch (Exception e) {
-                            System.out.println("1212");
                             throw new RuntimeException(e);
 
                         }
@@ -166,7 +165,6 @@ public class PhoneController {
 
 
         } catch (Exception e) {
-            System.out.println("12");
             throw new RuntimeException(e);
 
         }
