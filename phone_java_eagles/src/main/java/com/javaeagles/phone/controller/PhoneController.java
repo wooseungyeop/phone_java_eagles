@@ -1,6 +1,5 @@
 package com.javaeagles.phone.controller;
 
-import com.javaeagles.phone.dto.PhNameDTO;
 import com.javaeagles.phone.dto.PhoneDTO;
 import com.javaeagles.phone.service.PhoneService;
 
@@ -28,26 +27,29 @@ public class PhoneController {
 
     public static void phoneFindByName(){
         Scanner sc = new Scanner(System.in);
-        System.out.print("이름을 입력하세요 : ");
-        String name = sc.nextLine();
-        PhoneDTO ph = null; // 강제 초기화
-        PhNameDTO phName = null;
 
+        PhoneDTO ph = null; // 강제 초기화
 
         try {
-            if( name.matches("[a-zA-Z]+")){
-                System.out.println("잘못 입력하셨습니다.");
-            }else if(name != null && name.trim().isEmpty()){    // trim() :
+            System.out.print("이름을 입력하세요 : ");
+            String name = sc.nextLine();
+            ph = phoneService.phoneFindByName(name);
+
+            if(name != null && name.trim().isEmpty()){    // trim() :
                 System.out.println("공백입니다.");
+
+            }else if(ph.getUserName() != null){
+                System.out.println(ph);
+            }else{
+                System.out.println("등록된 이름이 없습니다. 다시 입력해주세요.");
+
             }
-            else {
-                ph = phoneService.phoneFindByName(name);
-                System.out.println(ph);}
+
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-
 
     public static void phoneInsert(){
         Scanner sc = new Scanner(System.in);
